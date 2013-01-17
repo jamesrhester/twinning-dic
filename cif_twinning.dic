@@ -1,0 +1,479 @@
+##
+## I have written a number of queries in this dictionary 
+## on lines that start with ##
+##
+## Please do not use tabs as spacers in this dictionary as 
+## they are not part of the ASCII character set.
+##
+## Lines should contain no more than eighty characters
+##
+
+
+##############################################################################
+#                                                                            #
+#         CIF Twinning Definitions                                           #
+#                                                                            #
+# This dictionary contains draft names and definitions of twinning data items#
+# recognised by the International Union of Crystallography for the exchange  #
+# of data between laboratories and submissions to journals and databases.    #
+#                                                                            #
+# The STAR/DDL dictionary to which this dictionary conforms                  #
+# is available as the file "ddl_core.dic"                                    #
+# located at URL ftp://ftp.iucr.org/pub/cifdics/ddl_core_1.4.1.dic           #
+#                                                                            #
+##############################################################################
+
+data_on_this_dictionary
+    _dictionary_name            cif_twinning.dic
+    _dictionary_version         0.2
+    _dictionary_update          2012-08-20
+    _dictionary_history
+;
+    2012-07-25 Created from Victor Young's draft text. JRH
+    2012-08-20 Added category definitions and corrected _list for 
+               _twin_lattice_type. JRH
+    2012-08-21 cosmetic changes such as arranging the items 
+               alphabetically and added queries for VY. I.D.Brown
+    2012-08-28 Inserted changes from V. Young as per I.D. Brown's
+               comments; removed _example_detail for twin category; corrected
+               _list_reference for _refln_ category; added explanation for
+               _refln_F_squared_ . JRH
+    2012-08-31 Added _twin_special_details with example from VY. JRH
+;
+
+###############
+## TWIN      ##
+###############
+
+data_twin_[]
+    _name                 '_twin_[]'
+    _category             category_overview
+    _type                 null
+    _example
+#--------------------------------------------------------------------
+;
+        _twin_formation_mechanism         gt
+        _twin_dimensionality              triperiodic
+        _twin_lattice_type                mt_I
+        _twin_morphology                  contact
+;
+##
+## A value is needed here for _example_detail to complete the loop.
+## I have added ? as a space holder which can be replaced.
+##
+## Removed _example_detail - unnecessary. JRH
+
+    _definition
+##
+## This definition would be better with a reference to the theory 
+## (e.g., Int Tables).  
+## Since each of these definitions will appear independently in a help
+## search, they should be independent and include all the information
+## a user may need.  Consider including the Int Tables reference
+## wherever technical terms are involved.
+##
+;    Data items in the TWIN category record general details about
+     the nature of the twinning in the sample.
+     Terminology for twin dataname definitions was taken directly from:             
+     "International Union of Crystallography Commission on Mathematical 
+     and Theoretical Crystallography Research themes: Crystal twinning"
+     by Massimo Nespolo, February 3, 2009.
+     http://www.crystallography.fr/mathcryst/twins.htm . 
+;
+
+data_twin_dimensionality
+    _name                  '_twin_dimensionality'
+    _category              twin
+    _type                  char
+    _list                  no
+    loop_ _enumeration
+    	  _enumeration_detai
+              triperiodic   'common lattice in three dimensions'
+              diperiodic    'common lattice in two dimensions'
+              monoperiodic  'common lattice in one dimension'
+    _definition
+##
+## Write out TLS and TLQS in full and define these terms if necessary
+##
+;
+   The degree of overlap between the twin lattices.  
+   Most Twin Lattice Symmetry (TLS) and Twin Lattice Quasi-Symmetry (TLQS) 
+   twins as defined by Donnay and Donnay (Can. Mineral. (1974) 12, 422-425) 
+   will be triperiodic.  
+;
+
+data_twin_formation_mechanism
+    _name         '_twin_formation_mechanism'
+    _category     twin
+    _type         char
+    _list         no
+    loop_ _enumeration
+    	  _enumeration_detail
+        gt    'growth twin formed during crystal growth''
+        tt    'transformation twin formed during phase transition'
+        mt    'mechanical twin formed as a result of mechanical action'
+    _definition
+##
+## 'if known' is not needed here (or elsewhere) as CIF is not prescriptive.
+## The only mandatory items are those required for file management
+##
+## Removed the "if known" VGY                                        
+;
+     A description of the method of twin formation.
+;
+
+##
+## The 't's that appear as the last letter on these enumeration lists 
+## are not really needed and could be removed,
+## though this removal not necessary. 
+##
+## I actually like the "t" VGY                                     
+
+data_twin_lattice_type
+    _name                     '_twin_lattice_type'
+    _category                 twin
+    _type                     char
+    _list                     both
+    loop_ _enumeration
+    	  _enumeration_detail
+               mt_I       'merohedral class I (simple inversion)'
+               mt_II      'merohedral class II (mirror or twofold)'
+               mt_I+II    'class I and II simultaneously present'
+               rmt        'reticular merohedral'
+               pmt        'pseudo-merohedral'
+               rpmt       'reticular pseudo-merohedral'
+    _definition
+;
+       Identification of the symmetry relationships between the 
+       twin lattices as described in IT Vol C, Chapter 1.3.  
+       Multiple twinning types should be listed in a loop.
+;
+
+## data_twin_matrix_type
+##
+## See my note on *_twin_matrix below
+## This item is probably not needed
+##
+## Yes, based on discussion below this could be removed. It will be
+## interesting to see if anyone find a need for the 'orient' system. VGY <---
+
+## (Removed) 
+
+data_twin_morphology
+    _name       '_twin_morphology'
+    _category   twin
+    _type       char
+    _list       no
+    loop_ 
+       _enumeration
+       _enumeration_detail
+##
+## Which of the two definitions of ct is the real one? 
+## RENAMED SET with actual descriptive names, as presented in
+## Nespolo's monograph. VGY                                           <----
+##
+        contact        'separated by a surface'
+        penetration    'sharing a volume'
+        simple         'individuals are not repeated'
+        polysynthetic  'individuals repeat in approximately linear arrangement'
+        cyclic         'individuals repeat in closed edifice'
+    _definition
+## removed the "if known" here VGY                                   <----  
+;
+ The physical relationship of the different twins to one another.
+;
+
+data_twin_special_details
+    _name            '_twin_special_details'
+    _category         twin
+    _type             char
+    _list             no
+    _example
+;
+    Individuals 3 and 4 arise from form (I) following an enantiotropic phase transition
+    by sudden cooling in a cryostat to 173K. 
+;
+    _definition
+;
+    Information about twinning in the sample not contained in other data items.
+;
+
+##########################
+## TWIN_INDIVIDUAL      ##
+##########################
+
+data_twin_individual_[]
+    _name            '_twin_individual_[]'
+    _category        category_overview
+    _type            null
+    _definition
+;        Data items in the twin_individual category describe properties 
+         of each twinned individual, and the symmetry relationships 
+         between the individuals.
+;
+ 
+data_twin_individual_id
+     _name                'twin_individual_id'
+     _category            twin_individual
+     _type                char
+     _list                yes
+     _list_link_child	  '_refln_index_twin_individual_id'
+     _list_mandatory      yes
+     _definition
+;
+      A unique ID used to identify this twin individual. 
+;
+
+data_twin_individual_mass_fraction_refined
+     _name             'twin_individual_mass_fraction_refined'
+     _category		  twin_individual
+     _type             numb
+     _type_conditions	  esd
+     _list             yes
+     _list_reference	  '_twin_individual_id'
+     _definition
+##
+## The definition should make it clear that the sum of all the individual
+## mass fractions must not exceed 1.0 within the experimental uncertainty.
+##
+## ADDED CLAUSE TO DEFINE SUM OF ALL MASSES EQUAL TO UNITY - VGY                 <----
+;
+      The refined mass fraction of this twin individual, whereby the sum
+      of all masses must equal unity by definition within experimental 
+      uncertainty.
+;
+
+##
+## Two different matrices should be defined, one absolute and one relative.
+## In general, only one lf these would be given.  The problem here is that 
+## the interpretation of the numbers given here depends on the value of 
+## _twin_matrix_type, which violates the principle that the values given
+## in one item should not depend on the value of a different item in the 
+## CIF.  For example, how should this matrix be treated if _twin_matrix_type
+## is not present?  Defining two different matrices allows for both to be given
+## which will in any case be necessary in the advanced versions of CIF.
+## If two types of matrix are defined, _twin_matrix_type is not needed.
+##
+## I think that _twin_matrix_type is not needed. VGY                             <---                                                                           <---
+data_twin_individual_twin_matrix
+     loop_ _name          '_twin_individual_twin_matrix_11'
+                          '_twin_individual_twin_matrix_12'
+                          '_twin_individual_twin_matrix_13'
+                          '_twin_individual_twin_matrix_21'
+                          '_twin_individual_twin_matrix_22'
+                          '_twin_individual_twin_matrix_23'
+                          '_twin_individual_twin_matrix_31'
+                          '_twin_individual_twin_matrix_32'
+                          '_twin_individual_twin_matrix_33'
+     _category            '_twin_individual'
+     _type		          numb
+     _list		          yes
+     _list_reference	     '_twin_individual_id'
+     _definition
+;
+     Elements of the matrix that specifies the relationship 
+     between the lattices of the individual twins.
+     h'k'l' of a given twin is obtained from the primary twin hkl as
+
+                         [h'k'l'] = U.[hkl]
+
+     where U is the matrix specified here.  It follows that the 
+     primary twin must have U = I, the identity matrix. 
+;     
+
+###########
+## REFLN ##
+###########
+
+##
+## Somewhere in this dictionary it should be made clear whether the values 
+## given under _refln_F_* are weighted according to the twin fraction, 
+## or whether they have all been brought to the same scale (as appears to 
+## be the case from your example).  Presumably the measured structure factor 
+## in this case could be calculated by adding all the values 
+## with the same datum index after they had been multiplied by
+## the mass fraction.  This needs to be made unambiguous.
+##
+## I believe we use the latter method. I do not know how to use plain ASCII
+## characters to compose the relationships first reported by Pratt, Coyle, 
+## and Ibers, J. Chem Soc. (A)2146 (1971). The formula for definition of Fc**2
+## for a series of twin individuals with differing mass fractions, k, is reported.
+## Mass fractions by definition must sum to 1.0.
+## Please see http://shelx.uni-ac.gwdg.de/~rherbst/shelx.html for formulas - VGY <---
+
+data_refln_[]
+    _name                      '_refln_[]'
+    _category                    category_overview
+    _type                        null
+    loop_ _example
+          _example_detail
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+loop_ 
+ _refln_index_h 
+ _refln_index_k 
+ _refln_index_l 
+ _refln_F_squared_calc 
+ _refln_F_squared_meas 
+ _refln_F_squared_sigma 
+ _refln_observed_status 
+ _refln_twin_individual_id
+ _refln_twin_datum_index
+##
+## Shouldn't the lines with the same datum but different twin id's 
+## have different values of hkl?  Or are symmetry related
+## structure factors assumed to have been averaged?
+##
+## THIS IS A CONICIDENCE WHERE SOME HKL ARE THE SAME FOR TWO INDIVIDUALS
+## THIS EXAMPLE IS OF A 4-COMPONENT TWIN in space group P1. VGY                <----
+##
+   1   0   0        0.47        1.03      0.18 o  3      1
+   1   0   0        0.47        1.03      0.18 o  1      1
+   2   0   0     1300.45     1290.01     55.59 o  3      2
+   2   0   0     1300.45     1290.01     55.59 o  1      2
+   3   0   0        2.34        2.59      0.42 o  3      3
+   3   0   0        2.34        2.59      0.42 o  1      3
+   4   0   0       32.45       30.98      1.47 o  3      4
+   4   0   0       32.45       30.98      1.47 o  1      4
+   5   0   0        2.19        1.97      0.96 o  3      5
+   5   0   0        2.19        1.97      0.96 o  1      5
+   6   1   2        0.95        1.55      1.14 o  4      6
+   6   0   0        0.95        1.55      1.14 o  3      6
+   6   1   2        0.95        1.55      1.14 o  2      6
+   6   0   0        0.95        1.55      1.14 o  1      6
+   6   2   2        0.08        0.47      1.06 o  2      7
+  -6   1   0        0.08        0.47      1.06 o  1      7
+;
+
+;
+   This listing corresponds to seven observed diffraction spots from a
+   simple four-component twin by non-merohedry.
+;    
+
+data_refln_F_squared_
+    loop_ _name                '_refln_F_squared_calc'
+                               '_refln_F_squared_meas'
+                               '_refln_F_squared_sigma'
+    _category                    refln
+    _type                        numb
+    _list                        yes
+    _list_reference            '_refln_index_'
+    _definition
+;              Calculated, measured and estimated standard uncertainty
+               (derived from measurement) of the squared structure
+               factors (in electrons squared for X-ray diffraction).
+               Where n twin individuals are present, this value has
+               been scaled by the twin mass fraction given in
+               _twin_individual_mass_fraction_refined.  The total
+               contribution from all twins to a single observed
+               reflection may then be modelled according to the method
+               of Pratt, Coyle and Ibers (J. Chem. Soc. A (1971),2146)
+               as follows:
+
+               2          2  (  n                          )
+              F     =  osf   ( Sum  _refln_F_squared_calc  )
+               obs           ( m=1                       m )
+
+               Where osf is the overall scale factor and index m is 
+               _refln_index_twin_individual_id.
+;
+
+##
+## There is a more serious problem here.  The purpose of _list_reference is
+## to uniquely label each row of the refln table, but as the example above
+## shows, this is not the case once one has twins present, since there is
+## more than one row with the same h,k,l.
+## The best solution is to add the twin_individual_id to the _refln_index 
+## which can be done by renaming this item _refln_index_twin_individual_id.
+## This should cause the software to add this item to the h,k,l list 
+## that is the current _list_reference.
+## Technically this item should then become mandatory but this seems 
+## unreasonable, and software should compensate.  
+## In the advanced CIF versions, all the _refln_index items would be 
+## gathered into a single value using 'methods' defined in the dictionary
+## and this software fix would be then included in the dictionary itself.
+##
+## James, I will leave this correction to you to do. VGY                   <----
+##
+## JRH Comments: I had believed that writing 
+## '_refln_index_' as the value of _list_reference_ as is currently done
+## in the core dictionary is semantically equivalent to finding the
+## datablock labelled 'data_refln_index_' and expanding any loop over
+## datanames contained therein.  Ultimately that would mean that what is currently in
+## the core dictionary for REFLN items is equivalent to writing
+##
+## loop_ _list_reference '_refln_index_h' '_refln_index_k' '_refln_index_l'
+##
+## David's suggestion implies that there is a behaviour defined such that the system 
+## should search for all datanames beginning with '_refln_index_', so simply
+## defining _refln_index_twin_individual_id would solve the problem.  Currently
+## these two behaviours produce identical results for all categories with
+## list_reference defined in this way (i.e. value is a dataname ending in '_').
+##
+## However, neither of the above behaviours are good CIF practice.  My approach
+## would mean that the datablock name had semantic significance, which is not
+## true - the datablock name is arbitrary.  David's suggested behaviour would
+## imply that datanames cannot end in '_', and that the underscores in a dataname
+## are significant, because they are used to flag whether or not a list_reference
+## refers to multiple names or not.
+
+## Therefore, the only manifestly correct way to specify list_reference datanames is to
+## explicitly loop the datanames, as I have done below.  The sooner we move to DDL3
+## the better in terms of dealing with these sorts of legacy problems.
+
+## I propose the two definitions below.  Conceptually, if either
+## of these datanames are present in the REFLN category, then the 
+## _list_reference for that category becomes h,k,l,twin_id.  Otherwise it
+## remains as previously defined.
+##
+## It follows that a strict DDL1 validation program should find the union of all
+## _list_reference entries for every looped dataname in order to determine if the
+## _list_reference criteria are met. This approach seems to be in keeping with the
+## DDL1 definitions (else why allow individual _list_reference entries for
+## every category dataname?).
+##
+## In DDL2 the _list_reference information would be kept in the category
+## definition and therefore the equivalent DDL2 twinning dictionary would
+## work by partially replacing the category key definitions using the 
+## dictionary merging protocol.
+
+data_refln_index_twin_individual_id
+     _name               '_refln_index_twin_individual_id'
+     _category           refln
+     _type               char
+     _list               yes
+     _list_link_parent   '_twin_individual_id' 
+     loop_ 
+         _list_reference
+              '_refln_index_h'
+              '_refln_index_k'
+              '_refln_index_l'
+              '_refln_index_twin_individual_id'
+     _definition
+;
+      The unique ID used to identify the twin individual that produced 
+      this observation.  The ID must match a _twin_individual_id in the 
+      _twin_individual category.  Together with _refln_index_h,k,l it
+      creates a unique reference for items in the reflection list.
+;
+
+data_refln_twin_datum_index
+     _name            '_refln_twin_datum_index'
+     _category         refln
+     _type             char
+     _list             yes
+     loop_ 
+         _list_reference
+              '_refln_index_h'
+              '_refln_index_k'
+              '_refln_index_l'
+              '_refln_index_twin_individual_id'
+     _definition
+;
+     A single observation may contain contributions from multiple twins, 
+     each of which will have a different hkl index.  
+     Reflections with differing hkl indices but identical 
+     _refln_twin_datum_index originate 
+     from the same observed diffraction spot.
+;	       
+
