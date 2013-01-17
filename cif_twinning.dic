@@ -372,7 +372,7 @@ data_refln_F_squared_
 
                2          2  (  n                          )
               F     =  osf   ( Sum  _refln_F_squared_calc  )
-               obs           ( m=1                       m )
+               calc          ( m=1                       m )
 
                Where osf is the overall scale factor and index m is 
                _refln_index_twin_individual_id.
