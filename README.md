@@ -1,4 +1,4 @@
 twinning-dic
 ============
 
-Development of IUCr twinning dictionary
+This repository has been created to ease development of the IUCr twinning dictionary.
