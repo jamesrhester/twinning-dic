@@ -40,6 +40,8 @@ data_on_this_dictionary
                _refln_F_squared_ . JRH
     2012-08-31 Added _twin_special_details with example from VY. JRH
     2013-01-17 Corrected equation defining F_calc. JRH
+    2013-01-18 Moved _refln_ items into separate _refln_twin category and
+               rewrote definitions for clarity.
 ;
 
 ###############
@@ -282,9 +284,9 @@ data_twin_individual_twin_matrix
      primary twin must have U = I, the identity matrix. 
 ;     
 
-###########
-## REFLN ##
-###########
+################
+## REFLN_TWIN ##
+################
 
 ##
 ## Somewhere in this dictionary it should be made clear whether the values 
@@ -302,22 +304,29 @@ data_twin_individual_twin_matrix
 ## Mass fractions by definition must sum to 1.0.
 ## Please see http://shelx.uni-ac.gwdg.de/~rherbst/shelx.html for formulas - VGY <---
 
-data_refln_[]
-    _name                      '_refln_[]'
+data_refln_twin_[]
+    _name                      '_refln_twin_[]'
     _category                    category_overview
     _type                        null
+    _definition
+;
+    Items in the refln_twin category tabulate the calculated F^2 values for each observed
+    peak, together with the observed peak F^2 values.  In order to calculate a F^2
+    value for an observed peak, a weighted sum of the contribution of multiple twin individuals
+    may need to be carried out.
+; 
     loop_ _example
           _example_detail
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
 loop_ 
- _refln_index_h 
- _refln_index_k 
- _refln_index_l 
- _refln_F_squared_calc 
- _refln_F_squared_meas 
- _refln_F_squared_sigma 
- _refln_observed_status 
+ _refln_twin_index_h 
+ _refln_twin_index_k 
+ _refln_twin_index_l 
+ _refln_twin_F_squared_calc 
+ _refln_twin_F_squared_meas 
+ _refln_twin_F_squared_sigma 
+ _refln_twin_observed_status 
  _refln_twin_individual_id
  _refln_twin_datum_index
 ##
@@ -350,35 +359,73 @@ loop_
    This listing corresponds to seven observed diffraction spots from a
    simple four-component twin by non-merohedry.
 ;    
-
-data_refln_F_squared_
-    loop_ _name                '_refln_F_squared_calc'
-                               '_refln_F_squared_meas'
-                               '_refln_F_squared_sigma'
-    _category                    refln
+#---------------------------------------------------------------------
+data_refln_twin_F_squared_calc
+    _name                        '_refln_twin_F_squared_calc'                          
+    _category                    refln_twin
     _type                        numb
     _list                        yes
-    _list_reference            '_refln_index_'
-    _definition
-;              Calculated, measured and estimated standard uncertainty
-               (derived from measurement) of the squared structure
-               factors (in electrons squared for X-ray diffraction).
-               Where n twin individuals are present, this value has
-               been scaled by the twin mass fraction given in
-               _twin_individual_mass_fraction_refined.  The total
-               contribution from all twins to a single observed
-               reflection may then be modelled according to the method
-               of Pratt, Coyle and Ibers (J. Chem. Soc. A (1971),2146)
-               as follows:
+    loop_ 
+         _list_reference
+              '_refln_twin_index_h'
+              '_refln_twin_index_k'
+              '_refln_twin_index_l'
+              '_refln_twin_index_individual_id'
 
-               2          2  (  n                          )
-              F     =  osf   ( Sum  _refln_F_squared_calc  )
-               calc          ( m=1                       m )
+    _definition 
+
+; 
+
+        Calculated value for the overall squared structure factors (in
+        electrons squared for X-ray diffraction) arising from
+        potentially multiple twin contributions to each peak.  The
+        total contribution from all twins to a single observed
+        reflection is modelled according to the method of Pratt, Coyle
+        and Ibers (J. Chem. Soc. A (1971),2146) as follows:
+
+               2                2  (  n                          )
+              F        =     osf   ( Sum  _refln_F_squared_calc  )
+               calc(tot)           ( m=1                       m )
 
                Where osf is the overall scale factor and index m is 
-               _refln_index_twin_individual_id.
+               _refln_twin_index_individual_id. 
 ;
 
+data_refln_twin_F_squared_meas
+    _name                        '_refln_twin_F_squared_meas'                          
+    _category                    refln_twin
+    _type                        numb
+    _list                        yes
+    loop_ 
+         _list_reference
+              '_refln_twin_index_h'
+              '_refln_twin_index_k'
+              '_refln_twin_index_l'
+              '_refln_twin_index_individual_id'
+
+    _definition 
+;
+         The overall F^2 of the peak referenced by 
+         _refln_twin_datum_index, which is typically the observed peak
+         intensity after Lorenz and polarisation corrections.
+;
+
+data_refln_twin_F_squared_sigma
+    _name                        '_refln_twin_F_squared_sigma'                          
+    _category                    refln_twin
+    _type                        numb
+    _list                        yes
+    loop_ 
+         _list_reference
+              '_refln_twin_index_h'
+              '_refln_twin_index_k'
+              '_refln_twin_index_l'
+              '_refln_twin_index_individual_id'
+
+    _definition 
+;
+            Standard uncertainty of _refln_twin_F_squared_meas
+;
 ##
 ## There is a more serious problem here.  The purpose of _list_reference is
 ## to uniquely label each row of the refln table, but as the example above
@@ -396,65 +443,31 @@ data_refln_F_squared_
 ##
 ## James, I will leave this correction to you to do. VGY                   <----
 ##
-## JRH Comments: I had believed that writing 
-## '_refln_index_' as the value of _list_reference_ as is currently done
-## in the core dictionary is semantically equivalent to finding the
-## datablock labelled 'data_refln_index_' and expanding any loop over
-## datanames contained therein.  Ultimately that would mean that what is currently in
-## the core dictionary for REFLN items is equivalent to writing
-##
-## loop_ _list_reference '_refln_index_h' '_refln_index_k' '_refln_index_l'
-##
-## David's suggestion implies that there is a behaviour defined such that the system 
-## should search for all datanames beginning with '_refln_index_', so simply
-## defining _refln_index_twin_individual_id would solve the problem.  Currently
-## these two behaviours produce identical results for all categories with
-## list_reference defined in this way (i.e. value is a dataname ending in '_').
-##
-## However, neither of the above behaviours are good CIF practice.  My approach
-## would mean that the datablock name had semantic significance, which is not
-## true - the datablock name is arbitrary.  David's suggested behaviour would
-## imply that datanames cannot end in '_', and that the underscores in a dataname
-## are significant, because they are used to flag whether or not a list_reference
-## refers to multiple names or not.
+## JRH Comments:
 
-## Therefore, the only manifestly correct way to specify list_reference datanames is to
-## explicitly loop the datanames, as I have done below.  The sooner we move to DDL3
-## the better in terms of dealing with these sorts of legacy problems.
+## By moving the twin-specific tabulation to a separate category this
+## problem is avoided.  I believe that the only manifestly correct way
+## to specify list_reference datanames is to explicitly loop the
+## datanames, as I have done below.  The sooner we move to DDL3 the
+## better in terms of dealing with these sorts of legacy problems.
 
-## I propose the two definitions below.  Conceptually, if either
-## of these datanames are present in the REFLN category, then the 
-## _list_reference for that category becomes h,k,l,twin_id.  Otherwise it
-## remains as previously defined.
-##
-## It follows that a strict DDL1 validation program should find the union of all
-## _list_reference entries for every looped dataname in order to determine if the
-## _list_reference criteria are met. This approach seems to be in keeping with the
-## DDL1 definitions (else why allow individual _list_reference entries for
-## every category dataname?).
-##
-## In DDL2 the _list_reference information would be kept in the category
-## definition and therefore the equivalent DDL2 twinning dictionary would
-## work by partially replacing the category key definitions using the 
-## dictionary merging protocol.
-
-data_refln_index_twin_individual_id
-     _name               '_refln_index_twin_individual_id'
+data_refln_twin_index_individual_id
+     _name               '_refln_twin_index_individual_id'
      _category           refln
      _type               char
      _list               yes
      _list_link_parent   '_twin_individual_id' 
      loop_ 
          _list_reference
-              '_refln_index_h'
-              '_refln_index_k'
-              '_refln_index_l'
-              '_refln_index_twin_individual_id'
+              '_refln_twin_index_h'
+              '_refln_twin_index_k'
+              '_refln_twin_index_l'
+              '_refln_twin_index_individual_id'
      _definition
 ;
       The unique ID used to identify the twin individual that produced 
       this observation.  The ID must match a _twin_individual_id in the 
-      _twin_individual category.  Together with _refln_index_h,k,l it
+      _twin_individual category.  Together with _refln_twin_index_h,k,l it
       creates a unique reference for items in the reflection list.
 ;
 
@@ -465,10 +478,10 @@ data_refln_twin_datum_index
      _list             yes
      loop_ 
          _list_reference
-              '_refln_index_h'
-              '_refln_index_k'
-              '_refln_index_l'
-              '_refln_index_twin_individual_id'
+              '_refln_twin_index_h'
+              '_refln_twin_index_k'
+              '_refln_twin_index_l'
+              '_refln_twin_index_individual_id'
      _definition
 ;
      A single observation may contain contributions from multiple twins, 
