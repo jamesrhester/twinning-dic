@@ -42,6 +42,7 @@ data_on_this_dictionary
     2013-01-17 Corrected equation defining F_calc. JRH
     2013-01-18 Moved _refln_ items into separate _refln_twin category and
                rewrote definitions for clarity.
+    2013-03-13 Added missing _refln_twin_index_ . JRH
 ;
 
 ###############
@@ -370,7 +371,7 @@ data_refln_twin_F_squared_calc
               '_refln_twin_index_h'
               '_refln_twin_index_k'
               '_refln_twin_index_l'
-              '_refln_twin_index_individual_id'
+              '_refln_twin_individual_id'
 
     _definition 
 
@@ -401,7 +402,7 @@ data_refln_twin_F_squared_meas
               '_refln_twin_index_h'
               '_refln_twin_index_k'
               '_refln_twin_index_l'
-              '_refln_twin_index_individual_id'
+              '_refln_twin_individual_id'
 
     _definition 
 ;
@@ -420,7 +421,7 @@ data_refln_twin_F_squared_sigma
               '_refln_twin_index_h'
               '_refln_twin_index_k'
               '_refln_twin_index_l'
-              '_refln_twin_index_individual_id'
+              '_refln_twin_individual_id'
 
     _definition 
 ;
@@ -451,9 +452,9 @@ data_refln_twin_F_squared_sigma
 ## datanames, as I have done below.  The sooner we move to DDL3 the
 ## better in terms of dealing with these sorts of legacy problems.
 
-data_refln_twin_index_individual_id
-     _name               '_refln_twin_index_individual_id'
-     _category           refln
+data_refln_twin_individual_id
+     _name               '_refln_twin_individual_id'
+     _category           refln_twin
      _type               char
      _list               yes
      _list_link_parent   '_twin_individual_id' 
@@ -462,7 +463,7 @@ data_refln_twin_index_individual_id
               '_refln_twin_index_h'
               '_refln_twin_index_k'
               '_refln_twin_index_l'
-              '_refln_twin_index_individual_id'
+              '_refln_twin_individual_id'
      _definition
 ;
       The unique ID used to identify the twin individual that produced 
@@ -473,7 +474,7 @@ data_refln_twin_index_individual_id
 
 data_refln_twin_datum_index
      _name            '_refln_twin_datum_index'
-     _category         refln
+     _category         refln_twin
      _type             char
      _list             yes
      loop_ 
@@ -481,7 +482,7 @@ data_refln_twin_datum_index
               '_refln_twin_index_h'
               '_refln_twin_index_k'
               '_refln_twin_index_l'
-              '_refln_twin_index_individual_id'
+              '_refln_twin_individual_id'
      _definition
 ;
      A single observation may contain contributions from multiple twins, 
@@ -491,3 +492,17 @@ data_refln_twin_datum_index
      from the same observed diffraction spot.
 ;	       
 
+data_refln_twin_index_
+    loop_ _name              '_refln_twin_index_h'
+                             '_refln_twin_index_k'
+                             '_refln_twin_index_l'
+    _category                 refln_twin
+    _type                     numb
+    _list                     yes
+    _list_mandatory           yes
+    _definition
+;             Miller indices of a reflection from a single twin individual. The values of
+              the Miller indices must correspond to the cell defined in the cell category
+              combined with the transformation matrix for the twin individual identified
+              with the _refln_twin_individual_id tag.
+;
