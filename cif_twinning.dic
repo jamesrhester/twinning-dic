@@ -194,8 +194,12 @@ data_twin_individual_id
 ## important to identify which is the reference twin.  
 ## Of course the the reference twin is ultimately identified by its matrix 
 ##
+## JRH I have slightly altered the wording of the definition to make it easier 
+## understand the significance of the reference twin. 
 ;
-      A unique ID used to identify this twin individual. 
+      A unique ID used to identify this twin individual. It is recommended that 
+      the reference twin be labelled '1'. The reference twin is that twin which
+      has unit _twin_individual_twin_matrix.
 ;
 
 data_twin_individual_mass_fraction_refined
@@ -217,7 +221,10 @@ data_twin_individual_mass_fraction_refined
 ## to recongnize that for an item with esd, a range of 0:1 
 ## implies 0:1+f(esd) where the function, f, is left up to the software. 
 ##
-## I have also reworded the definition and changed 'primary twin' 
+## JRH: I agree that this can be left to the software.  A similar 
+## issue arises in relation to the Flack parameter.
+##
+## IDB I have also reworded the definition and changed 'primary twin' 
 ## to 'reference twin' which is a little more explicit.
 ##
 ;
@@ -292,7 +299,13 @@ data_twin_individual_twin_matrix
 ## The example also supports the idea that the contributions of 
 ## the individual twins are listed here in spite of 
 ## the definitions of Fobs^2 and Fcalc^2.
-@@
+
+## JRH replies: The error in the F_squared_calc definition has been fixed.
+## The contribution of the individual twins is only indirectly identified in
+## the tabulation via the h,k,l value used for that twin. The corresponding
+## F_calc value for that h,k,l should be found in the usual _refln_ category.
+
+## IDB
 ## Should the list_reference be the _datum_index,
 ## in which case these items contain the sum of the twin contributions, 
 ## or should it be the Miller indices together with the twin_individual_id, 
@@ -300,10 +313,20 @@ data_twin_individual_twin_matrix
 ## In this latter case, we need to know if the items have been weighted 
 ## with the mass index or whether they refer to a whole unit cell 
 ## of the particular twin.
+
+## JRH replies: I have now fixed this, I had inadvertently left out the
+## mass fraction in the _refln_twin_F_calc equation.
 ##
+## IDB
 ## Perhaps one needs two categories, one for the individual contributions
 ## and one for the total contributions with _datum_index as the _list_reference
 ##
+## JRH replies: the individual contributions can be found by multiplying the
+## mass fraction by the _refln_F_calc values for the appropriate h,k,l and so are
+## not really needed as a separate table.  The _list_reference should be
+## h,k,l,datum_id, as stated in each of the definitions.
+
+## IDB
 ## James has solved the problem of how to include _list_references 
 @@ that involve more than one item, 
 ## but the designation of what should be the _list_reference 
@@ -319,6 +342,14 @@ data_twin_individual_twin_matrix
 ## I have never worked with twins so I do not know 
 ## how this is handled in practice.
 ##
+## JRH replies
+## I think that the issue of identifying observed peaks in _diffrn_refln
+## is broader than twinning, for example, how should magnetic peaks be
+## identified? I would suggest that we consider introducing
+## a _diffrn_refln_datum_index into the core dictionaries that would then
+## allow a given peak to be tracked easily through the data reduction and
+## modelling process (whether it be twinning,magnetism, incommensurate
+## structure and so forth).  This would replace h,k,l. 
 
 data_refln_twin_[]
     _name                      '_refln_twin_[]'
@@ -359,6 +390,13 @@ loop_
 ## of the different twins to the same observed diffraction spot are different.  
 ## If this is a P1 example, it must be a strange accident that has the 600 
 ## and 612 reflection cntributing to the same measured intensity (datum 6)
+##
+## JRH replies
+## Because _refln_twin_F_squared_calc is the overall F for a given observed datum,
+## it will always be the same for the same datum (likewise for F_meas and sig(F)).
+## That is, even if the mass fraction is different these values will be identical.
+## A separate list in the _refln_ category should be used to give the F_calc values
+## as a function of (h,k,l) for the model structure.
 ##
    1   0   0        0.47        1.03      0.18 o  3      1
    1   0   0        0.47        1.03      0.18 o  1      1
@@ -403,6 +441,8 @@ data_refln_twin_F_squared_calc
 ## I would have expected it to multiply __refln_F_squared_calc 
 ## in the expression for _refln_twin_F_squared_calc given below.
 ## 
+## JRH
+## This was my oversight, I have now corrected it
 ; 
 
         Calculated value for the overall squared structure factors (in
@@ -412,12 +452,13 @@ data_refln_twin_F_squared_calc
         reflection is modelled according to the method of Pratt, Coyle
         and Ibers (J. Chem. Soc. A (1971),2146) as follows:
 
-               2                2  (  n                          )
-              F        =     osf   ( Sum  _refln_F_squared_calc  )
-               calc(tot)           ( m=1                       m )
+               2                2  (  n                                )
+              F        =     osf   ( Sum  frac *_refln_F_squared_calc  )
+               calc(tot)           ( m=1      m                      m )
 
-               Where osf is the overall scale factor and index m is 
-               _refln_twin_index_individual_id. 
+               Where osf is the overall scale factor, index m is 
+               _refln_twin_index_individual_id, and frac is the mass fraction
+               for individual m. 
 ;
 
 data_refln_twin_F_squared_meas
@@ -504,6 +545,12 @@ data_refln_twin_index_
     _type                     numb
     _list                     yes
     _list_mandatory           yes
+    loop_ 
+         _list_reference
+              '_refln_twin_index_h'
+              '_refln_twin_index_k'
+              '_refln_twin_index_l'
+              '_refln_twin_individual_id'
     _definition
 ;    Miller indices of a reflection from a single twin individual. The values of
      the Miller indices must correspond to the cell defined in the cell category
