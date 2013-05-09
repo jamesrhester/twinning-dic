@@ -48,6 +48,9 @@ data_on_this_dictionary
                Rewrote the definition of _twin_individual_twin_matrix
                Raised queries about what the _refln_twin category 
                is actually recording.
+    2013-05-09 JRH: corrected _refln_twin_F_calc equation; added
+               _list_reference to _refln_twin_h,k,l definition;
+               fiddled with _twin_individual_twin_id definition text
 ;
 
 ###############
