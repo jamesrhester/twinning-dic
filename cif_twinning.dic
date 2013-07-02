@@ -52,6 +52,7 @@ data_on_this_dictionary
                _list_reference to _refln_twin_h,k,l definition;
                fiddled with _twin_individual_twin_id definition text
     2013-06-26 JRH,VY: added further example to TWIN category
+    2013-06-26 some syntax and formatting errors corrected (BM)
 ;
 
 ###############
@@ -66,7 +67,7 @@ data_twin_[]
 
 ;    Data items in the TWIN category record general details about
      the nature of the twinning in the sample.
-     Terminology for twin dataname definitions was taken directly from:             
+     Terminology for twin dataname definitions was taken directly from:
      "International Union of Crystallography Commission on Mathematical 
      and Theoretical Crystallography Research themes: Crystal twinning"
      by Massimo Nespolo, February 3, 2009.
@@ -76,63 +77,65 @@ data_twin_[]
     _example
 # -----------------------------------------------------------------------------
 ;
+    _twin_formation_mechanism         gt
+    _twin_dimensionality              triperiodic
+    _twin_lattice_type                mt_II
+    _twin_morphology                  polysynthetic
+    _twin_special_details
+    ;        This is an example of a twin in space group P3(2)
+             by the 2 x,x,0 twin operation.
+    ;
 
-data_twin_formation_mechanism         gt
-data_twin_dimensionality              triperiodic
-data_twin_lattice_type                mt_II
-data_twin_morphology                  polysynthetic
-data_twin_special_details   "This is an example of a twin in space group P3(2) by the 2 x,x,0 twin operation."
+    loop_
+       _twin_individual_id
+       _twin_individual_mass_fraction_refined
+       _twin_individual_twin_matrix_11 
+       _twin_individual_twin_matrix_12
+       _twin_individual_twin_matrix_13
+       _twin_individual_twin_matrix_21
+       _twin_individual_twin_matrix_22
+       _twin_individual_twin_matrix_23
+       _twin_individual_twin_matrix_31
+       _twin_individual_twin_matrix_32
+       _twin_individual_twin_matrix_33
+          1 0.545(2) 1  0  0  0  1  0  0  0  1
+          2 0.455(2) 0  1  0  1  0  0  0  0  -1
 
-data_twin_individual_ 
-loop_
- _id
- _mass_fraction_refined
- _twin_matrix_11 
- _twin_matrix_12
- _twin_matrix_13
- _twin_matrix_21
- _twin_matrix_22
- _twin_matrix_23
- _twin_matrix_31
- _twin_matrix_32
- _twin_matrix_33
-  1 0.545(2) 1  0  0  0  1  0  0  0  1
-  2 0.455(2) 0  1  0  1  0  0  0  0  -1
-
-
-data_refln_twin_
-loop_ 
- _index_h 
- _index_k 
- _index_l 
- _F_squared_calc 
- _F_squared_meas 
- _F_squared_sigma 
- _observed_status 
- _individual_id
- _datum_index
-  -1   1 -32       40.17       55.86      7.39 o  1      1
-   0   1 -32      125.83      145.63      9.36 o  1      2
-   1   1 -32       10.33       30.89      7.39 o  1      3
-  -3   2 -32       28.26       26.84      9.47 o  1      4
-  -2   2 -32        4.31       13.21      9.78 o  1      5
-  -1   2 -32       10.71       17.48      9.88 o  1      6
-   0   2 -32       13.94       37.66     10.51 o  1      7 
-   1   2 -32       58.60       75.41      9.88 o  1      8
-  -2   3 -32       27.75       41.40      8.01 o  1      9
-  -1   3 -32       59.22       65.53      8.11 o  1     10
+    loop_ 
+       _refln_twin_index_h 
+       _refln_twin_index_k 
+       _refln_twin_index_l 
+       _refln_twin_F_squared_calc 
+       _refln_twin_F_squared_meas 
+       _refln_twin_F_squared_sigma 
+       _refln_twin_observed_status 
+       _refln_twin_individual_id
+       _refln_twin_datum_index
+          -1   1 -32     40.17     55.86      7.39 o  1      1
+           0   1 -32    125.83    145.63      9.36 o  1      2
+           1   1 -32     10.33     30.89      7.39 o  1      3
+          -3   2 -32     28.26     26.84      9.47 o  1      4
+          -2   2 -32      4.31     13.21      9.78 o  1      5
+          -1   2 -32     10.71     17.48      9.88 o  1      6
+           0   2 -32     13.94     37.66     10.51 o  1      7 
+           1   2 -32     58.60     75.41      9.88 o  1      8
+          -2   3 -32     27.75     41.40      8.01 o  1      9
+          -1   3 -32     59.22     65.53      8.11 o  1     10
+;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
     _example_detail
 ;
- The twinning example presented above shows twinning by merohedry for a trigonal
- crystal system. The simulated space group is P3(2)21, but the true space
- group is P3(2). The twin operation chosen is (2) x,x,0 in P3(2)21 corresponding 
- to operation (by rows) 0, 1, 0 / 1, 0, 0 / 0, 0, -1 (see table 11.2.2.1 of IT Vol A). 
+ The twinning example presented above shows twinning by merohedry for
+ a trigonal crystal system. The simulated space group is P3(2)21, but
+ the true space group is P3(2). The twin operation chosen is (2) x,x,0 in
+ P3(2)21 corresponding to operation (by rows) 0, 1, 0 / 1, 0, 0 / 0, 0, -1
+ (see table 11.2.2.1 of IT Vol A).
 
- Every reflection hkl in individual 1 corresponds to a differently indexed reflection 
- h'k'l' in individual 2. The  _refln_twin_individual_id identifier is 1 for all hkl data, 
- but since this example has twinning by merohedry it is implicit that both designated 
- twin individuals, 1 and 2, are present. 
+ Every reflection hkl in individual 1 corresponds to a differently
+ indexed reflection h'k'l' in individual 2. The _refln_twin_individual_id
+ identifier is 1 for all hkl data, but since this example has twinning
+ by merohedry it is implicit that both designated twin individuals, 1
+ and 2, are present.
 ;
 
 data_twin_dimensionality
@@ -141,7 +144,7 @@ data_twin_dimensionality
     _type                  char
     _list                  no
     loop_ _enumeration
-    	  _enumeration_detai
+    	  _enumeration_detail
               triperiodic   'common lattice in three dimensions'
               diperiodic    'common lattice in two dimensions'
               monoperiodic  'common lattice in one dimension'
@@ -214,8 +217,9 @@ data_twin_special_details
     _list             no
     _example
 ;
-    Individuals 3 and 4 arise from form (I) following an enantiotropic 
-    phase transition by sudden cooling in a cryostat to 173K. 
+    Individuals 3 and 4 arise from form (I) following an
+    enantiotropic phase transition by sudden cooling in
+    a cryostat to 173K. 
 ;
     _definition
 ;
@@ -231,17 +235,17 @@ data_twin_individual_[]
     _category        category_overview
     _type            null
     _definition
-;        Data items in the twin_individual category describe properties 
+;        Data items in the TWIN_INDIVIDUAL category describe properties 
          of each twinned individual, and the symmetry relationships 
          between the individuals.
 ;
  
 data_twin_individual_id
-     _name                'twin_individual_id'
+     _name                '_twin_individual_id'
      _category            twin_individual
      _type                char
      _list                yes
-     _list_link_child	  '_refln_index_twin_individual_id'
+     _list_link_child	  '_refln_twin_individual_id'
      _list_mandatory      yes
      _definition
 ## IDB
@@ -257,11 +261,11 @@ data_twin_individual_id
 ;
       A unique ID used to identify this twin individual. It is recommended that 
       the reference twin be labelled '1'. The reference twin is that twin which
-      has unit _twin_individual_twin_matrix.
+      has unit matrix as specified in category TWIN_INDIVIDUAL_TWIN_MATRIX.
 ;
 
 data_twin_individual_mass_fraction_refined
-     _name             'twin_individual_mass_fraction_refined'
+     _name             '_twin_individual_mass_fraction_refined'
      _category		  twin_individual
      _type             numb
      _type_conditions	  esd
@@ -304,7 +308,7 @@ data_twin_individual_twin_matrix
                           '_twin_individual_twin_matrix_31'
                           '_twin_individual_twin_matrix_32'
                           '_twin_individual_twin_matrix_33'
-     _category            '_twin_individual'
+     _category            'twin_individual'
      _type		          numb
      _list		          yes
      _list_reference	     '_twin_individual_id'
@@ -340,7 +344,8 @@ data_twin_individual_twin_matrix
 ## for a series of twin individuals with differing mass fractions, k,
 ## is reported.
 ## Mass fractions by definition must sum to 1.0.
-## Please see http://shelx.uni-ac.gwdg.de/~rherbst/shelx.html for formulas - VGY 
+## Please see http://shelx.uni-ac.gwdg.de/~rherbst/shelx.html for formulas
+### - VGY 
 ##
 
 ## IDB
@@ -380,13 +385,14 @@ data_twin_individual_twin_matrix
 ## and one for the total contributions with _datum_index as the _list_reference
 ##
 ## JRH replies: the individual contributions can be found by multiplying the
-## mass fraction by the _refln_F_calc values for the appropriate h,k,l and so are
+## mass fraction by the _refln_F_calc values for the appropriate h,k,l
+## and so are
 ## not really needed as a separate table.  The _list_reference should be
 ## h,k,l,datum_id, as stated in each of the definitions.
 
 ## IDB
 ## James has solved the problem of how to include _list_references 
-@@ that involve more than one item, 
+## that involve more than one item, 
 ## but the designation of what should be the _list_reference 
 ## remains to be sorted out.  
 ## Is the _datum_index or the Miller indices together with the twin id?
@@ -417,7 +423,7 @@ data_refln_twin_[]
     _type                        null
     _definition
 ;
-    Items in the refln_twin category tabulate the calculated F^2 values 
+    Items in the REFLN_TWIN category tabulate the calculated F^2 values 
     for each observed peak, together with the observed peak F^2 values.
     In order to calculate a F^2 value for an observed peak, 
     a weighted sum of the contribution of multiple twin individuals
@@ -425,18 +431,6 @@ data_refln_twin_[]
 ; 
     loop_ _example
           _example_detail
-# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
-;
-loop_ 
- _refln_twin_index_h 
- _refln_twin_index_k 
- _refln_twin_index_l 
- _refln_twin_F_squared_calc 
- _refln_twin_F_squared_meas 
- _refln_twin_F_squared_sigma 
- _refln_twin_observed_status 
- _refln_twin_individual_id
- _refln_twin_datum_index
 ##
 ## THIS IS A CONICIDENCE WHERE SOME HKL ARE THE SAME FOR TWO INDIVIDUALS
 ## THIS EXAMPLE IS OF A 4-COMPONENT TWIN in space group P1. VGY                
@@ -452,12 +446,26 @@ loop_
 ## and 612 reflection cntributing to the same measured intensity (datum 6)
 ##
 ## JRH replies
-## Because _refln_twin_F_squared_calc is the overall F for a given observed datum,
-## it will always be the same for the same datum (likewise for F_meas and sig(F)).
-## That is, even if the mass fraction is different these values will be identical.
-## A separate list in the _refln_ category should be used to give the F_calc values
-## as a function of (h,k,l) for the model structure.
+## Because _refln_twin_F_squared_calc is the overall F for a given
+## observed datum, it will always be the same for the same datum
+## (likewise for F_meas and sig(F)).  That is, even if the mass
+## fraction is different these values will be identical.  A separate
+## list in the _refln_ category should be used to give the F_calc
+## values as a function of (h,k,l) for the model structure.
 ##
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
+;
+loop_ 
+ _refln_twin_index_h 
+ _refln_twin_index_k 
+ _refln_twin_index_l 
+ _refln_twin_F_squared_calc 
+ _refln_twin_F_squared_meas 
+ _refln_twin_F_squared_sigma 
+ _refln_twin_observed_status 
+ _refln_twin_individual_id
+ _refln_twin_datum_index
+
    1   0   0        0.47        1.03      0.18 o  3      1
    1   0   0        0.47        1.03      0.18 o  1      1
    2   0   0     1300.45     1290.01     55.59 o  3      2
@@ -482,7 +490,7 @@ loop_
 ;    
 #---------------------------------------------------------------------
 data_refln_twin_F_squared_calc
-    _name                        '_refln_twin_F_squared_calc'                          
+    _name                        '_refln_twin_F_squared_calc'
     _category                    refln_twin
     _type                        numb
     _list                        yes
@@ -510,19 +518,19 @@ data_refln_twin_F_squared_calc
         potentially multiple twin contributions to each peak.  The
         total contribution from all twins to a single observed
         reflection is modelled according to the method of Pratt, Coyle
-        and Ibers (J. Chem. Soc. A (1971),2146) as follows:
+        and Ibers [J. Chem. Soc. A (1971), 2146] as follows:
 
                2                2  (  n                                )
               F        =     osf   ( Sum  frac *_refln_F_squared_calc  )
                calc(tot)           ( m=1      m                      m )
 
                Where osf is the overall scale factor, index m is 
-               _refln_twin_index_individual_id, and frac is the mass fraction
+               _refln_twin_individual_id, and frac is the mass fraction
                for individual m. 
 ;
 
 data_refln_twin_F_squared_meas
-    _name                        '_refln_twin_F_squared_meas'                          
+    _name                        '_refln_twin_F_squared_meas'
     _category                    refln_twin
     _type                        numb
     _list                        yes
@@ -541,7 +549,7 @@ data_refln_twin_F_squared_meas
 ;
 
 data_refln_twin_F_squared_sigma
-    _name                        '_refln_twin_F_squared_sigma'                          
+    _name                        '_refln_twin_F_squared_sigma'
     _category                    refln_twin
     _type                        numb
     _list                        yes
@@ -573,8 +581,8 @@ data_refln_twin_individual_id
 ;
       The unique ID used to identify the twin individual that produced 
       this observation.  The ID must match a _twin_individual_id in the 
-      _twin_individual category.  Together with _refln_twin_index_h,k,l it
-      creates a unique reference for items in the reflection list.
+      TWIN_INDIVIDUAL category.  Together with _refln_twin_index_h,
+      *_k, *_l it creates a unique reference for items in the reflection list.
 ;
 
 data_refln_twin_datum_index
