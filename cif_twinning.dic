@@ -60,6 +60,7 @@ data_on_this_dictionary
                Converted space group symbols to CIF conventions
                Arranged items in alphabetic order to conform 
                 to other dictonaries.
+    2013-07-11 JRH edited examples to reflect proposed changes from IDB
     2013-07-29 VGY modified examples to comply with IDB's suggested changes 
                (see below). These are within comments, but not yet integrated
                into the text of the document. Added nmt for non-merohedral
@@ -67,7 +68,8 @@ data_on_this_dictionary
     2013-08-16 VGY made corrections as directed by JH in examples 2 and 3. 
                Removed work for these examples from commented text and 
                integrated into document. Updated example 1 to include explicit 
-               _twin_contribution items for individual 2.               
+               _twin_contribution items for individual 2.
+    2013-09-02 JRH edited in latest examples from VGY after email discussion               
 ;
 
 ###############
@@ -159,21 +161,31 @@ data_twin_[]
           2 0.455(2) 0  1  0  1  0  0  0  0 -1
 
     loop_
-       _twin_contribution_twin_id
+       _twin_contribution_datum_id
        _twin_contribution_index_h
        _twin_contribution_index_k
        _twin_contribution_index_l
-       _twin_contribution_datum_id
-          1     1  -1  32    2      
-          2     1   0  32    2      
-          3     1   1  32    2      
-          4     2  -3  32    2      
-          5     2  -2  32    2      
-          6     2  -1  32    2      
-          7     2   0  32    2       
-          8     2   1  32    2      
-          9     3  -2  32    2      
-         10     3  -1  32    2     
+       _twin_contribution_twin_id
+          1    -1   1 -32    1
+          1     1  -1  32    2
+          2     0   1 -32    1      
+          2     1   0  32    2
+          3     1   1 -32    1      
+          3     1   1  32    2
+          4    -3   2 -32    1     
+          4     2  -3  32    2
+          5    -2   2 -32    1      
+          5     2  -2  32    2
+          6    -1   2 -32    1      
+          6     2  -1  32    2
+          7     0   2 -32    1      
+          7     2   0  32    2
+          8     1   2 -32    1       
+          8     2   1  32    2
+          9    -2   3 -32    1      
+          9     3  -2  32    2
+         10    -1   3 -32    1      
+         10     3  -1  32    2 
 
     loop_ 
        _refln_twin_datum_id
@@ -340,6 +352,39 @@ data_twin_contribution_[]
     observed diffraction peak to which the reflection defined by
     _twin_contribution_index_h, k and l and _twin_contribution_twin_id
     contributes. 
+;
+    _example
+    
+;
+     loop_
+        _twin_contribution_twin_id
+        _twin_contribution_index_h
+        _twin_contribution_index_k
+        _twin_contribution_index_l
+        _twin_contribution_datum_id
+   3     1   0   0     1
+   1     1   0   0     1
+   3     2   0   0     2
+   1     2   0   0     2
+   3     3   0   0     3
+   1     3   0   0     3
+   3     4   0   0     4
+   1     4   0   0     4
+   3     5   0   0     5
+   1     5   0   0     5
+   4     6   1   2     6
+   3     6   0   0     6
+   2     6   1   2     6
+   1     6   0   0     6
+   2     6   2   2     7
+   1    -6   1   0     7
+;
+    _example_detail
+
+; 
+   This listing corresponds to seven observed diffraction spots from a
+   simple four-component twin by non-merohedry.  The corresponding
+   F^2 data is presented in the _refln_twin example.
 ;
 
 data_twin_contribution_datum_id
@@ -522,14 +567,21 @@ data_refln_twin_[]
      _twin_contribution_index_l
      _twin_contribution_twin_id
 
+   1   1   0   0   1
    1   1   0   0   3
+   2   2   0   0   1
    2   2   0   0   3
+   3   3   0   0   1
    3   3   0   0   3
+   4   4   0   0   1
    4   4   0   0   3
+   5   5   0   0   1
    5   5   0   0   3
    6   6   1   2   4
    6   6   0   0   3
    6   6   1   2   2
+   6   6   0   0   1
+   7  -6   1   0   1
    7   6   2   2   2
 
   loop_
@@ -551,17 +603,19 @@ data_refln_twin_[]
    7  -6   1   0        0.08        0.47      1.06 o  1
 
 ;
-   This listing corresponds to seven observed diffraction spots from a
-   simple four-component twin by non-merohedry in space group P1.
+   This listing describes seven observed diffraction spots corresponding
+   to the diffraction spots listed in the _twin_contributions_ example.
 ;    
 #---------------------------------------------------------------------
-## A potential third example problem follows as described by Colombo, et. al, in 
+## Athird example problem follows as described by Colombo, et. al, in 
 ## Inorg. Chem. 39, 4621 (2000). Two structures of nitronium tetranitratogallate
 ## are reported as a result of an enantiotropic phase transition. The higher 
 ## temperature phase is in the tetragonal space group I-4, while the lower
 ## temperature phase is a twin by non-merohedry in space group I2. The individuals
 ## are enantiomorphic as a result of the phase transition. Some additional 
-## description coud be added for the non-diffraction data CIF items.
+## description coud be added for the non-diffraction data CIF items. In the listing
+## below it is clear that datums 620 - 622 do not contain overlapping reflections,
+## whereas datums 623 - 627 contain overlapping reflections. 
 ##
   loop_
      _twin_contribution_datum_id
@@ -569,11 +623,19 @@ data_refln_twin_[]
      _twin_contribution_index_k
      _twin_contribution_index_l
      _twin_contribution_twin_id
-
-   623   3  -6  -1  2
+   620   1  -6  -3  1 
+   621  -1   6   3  1 
+   622  -1  -6  -3  1  
+   623   1   6   3  1
+   623   3  -6   1  2
    624  -3   6   3  2
+   624   3  -6  -3  1
+   625   3   6   3  1
+   625  -3  -6  -3  2
    626  -3   6   5  2
+   626  -5  -6  -3  1
    627  -5  -6  -3  2
+   627   5   6   3  1
  
   loop_
      _refln_twin_datum_id
@@ -589,7 +651,7 @@ data_refln_twin_[]
    621  -1   6   3      225.34      224.15      3.62 o  1 
    622  -1  -6  -3      173.28      181.13      3.06 o  1 
    623   1   6   3      204.45      204.38      4.48 o  1 
-   624  -3  -6  -3      240.97      241.19      3.75 o  1 
+   624   3  -6  -3      240.97      241.19      3.75 o  1 
    625   3   6   3      288.54      281.53      4.31 o  1 
    626  -5  -6  -3      179.56      176.35      5.36 o  1 
    627   5   6   3      235.04      238.84      4.06 o  1 
