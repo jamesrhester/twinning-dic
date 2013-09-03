@@ -70,6 +70,9 @@ data_on_this_dictionary
                integrated into document. Updated example 1 to include explicit 
                _twin_contribution items for individual 2.
     2013-09-02 JRH edited in latest examples from VGY after email discussion               
+    2013-09-03 JRH: move lattice_twin_type into twin_individual category; add
+               'ref' lattice twin type. Changed _twin_contribution_twin_id to
+               _twin_contribution_individual_id
 ;
 
 ###############
@@ -133,6 +136,8 @@ data_twin_[]
 ## In all loops in which _*_individual_id or _*_twin_id appears, 
 ## the h,k,l indices are those that belong to the identified twin.
 ##
+## JRH/VGY: we have adopted this suggestion and edited the loops
+## accordingly.
 
 
 ;
@@ -148,6 +153,7 @@ data_twin_[]
     loop_
        _twin_individual_id
        _twin_individual_mass_fraction_refined
+       _twin_individual_twin_lattice_type
        _twin_individual_twin_matrix_11 
        _twin_individual_twin_matrix_12
        _twin_individual_twin_matrix_13
@@ -157,15 +163,15 @@ data_twin_[]
        _twin_individual_twin_matrix_31
        _twin_individual_twin_matrix_32
        _twin_individual_twin_matrix_33
-          1 0.545(2) 1  0  0  0  1  0  0  0  1
-          2 0.455(2) 0  1  0  1  0  0  0  0 -1
+          1 0.545(2) ref   1  0  0  0  1  0  0  0  1
+          2 0.455(2) mt_II 0  1  0  1  0  0  0  0 -1
 
     loop_
        _twin_contribution_datum_id
        _twin_contribution_index_h
        _twin_contribution_index_k
        _twin_contribution_index_l
-       _twin_contribution_twin_id
+       _twin_contribution_individual_id
           1    -1   1 -32    1
           1     1  -1  32    2
           2     0   1 -32    1      
@@ -269,33 +275,6 @@ data_twin_formation_mechanism
      A description of the method of twin formation.
 ;
 
-data_twin_lattice_type
-##
-## IDB 2013-06-27
-## Under what circumstances would this item be in a list?
-## If there is more than one value to be listed, should it be given 
-## in one of the loops such as twin_individual?
-##
-    _name                     '_twin_lattice_type'
-    _category                 twin
-    _type                     char
-    _list                     both
-    loop_ _enumeration
-    	  _enumeration_detail
-               mt_I       'merohedral class I (simple inversion)'
-               mt_II      'merohedral class II (mirror or twofold)'
-               mt_I+II    'class I and II simultaneously present'
-               rmt        'reticular merohedral'
-               pmt        'pseudo-merohedral'
-               rpmt       'reticular pseudo-merohedral'
-               nmt        'non-merohedral'
-    _definition
-;
-       Identification of the symmetry relationships between the 
-       twin lattices as described in IT Vol C, Chapter 1.3.  
-       Multiple twinning types should be listed in a loop.
-;
-
 data_twin_morphology
     _name       '_twin_morphology'
     _category   twin
@@ -342,6 +321,10 @@ data_twin_special_details
 ## Would it be better to stay with the longer name for compatibility 
 ## (which might therfore avoid confusion)?
 ##
+## JRH 2013-09-03
+## The longer name is probably better, so I have used that
+## instead.
+##
 data_twin_contribution_[]
     _name                      '_twin_contribution_[]'
     _category                    category_overview
@@ -350,14 +333,14 @@ data_twin_contribution_[]
 ;
     Items in the twin_contribution category identify the datum_id of the 
     observed diffraction peak to which the reflection defined by
-    _twin_contribution_index_h, k and l and _twin_contribution_twin_id
+    _twin_contribution_index_h, k and l and _twin_contribution_individual_id
     contributes. 
 ;
     _example
     
 ;
      loop_
-        _twin_contribution_twin_id
+        _twin_contribution_individual_id
         _twin_contribution_index_h
         _twin_contribution_index_k
         _twin_contribution_index_l
@@ -397,7 +380,7 @@ data_twin_contribution_datum_id
               '_twin_contribution_index_h'
               '_twin_contribution_index_k'
               '_twin_contribution_index_l'
-              '_twin_contribution_twin_id'
+              '_twin_contribution_individual_id'
      _definition
 ;
      Each observed diffraction peak is assigned a unique _*_datum_id.
@@ -421,16 +404,16 @@ data_twin_contribution_index_
               '_twin_contribution_index_h'
               '_twin_contribution_index_k'
               '_twin_contribution_index_l'
-              '_twin_contribution_twin_id'
+              '_twin_contribution_individual_id'
     _definition
 ;    Miller indices of a reflection from a single twin individual. The values of
      the Miller indices must correspond to the cell defined in the cell category
      combined with the transformation matrix for the twin individual identified
-     by _twin_contribution_twin_id.
+     by _twin_contribution_individual_id.
 ;
  
-data_twin_contribution_twin_id
-     _name                    '_twin_contribution_twin_id'
+data_twin_contribution_individual_id
+     _name                    '_twin_contribution_individual_id'
      _category                twin_contribution
      _type                    char
      _list                    yes
@@ -441,7 +424,7 @@ data_twin_contribution_twin_id
               '_twin_contribution_index_h'
               '_twin_contribution_index_k'
               '_twin_contribution_index_l'
-              '_twin_contribution_twin_id'
+              '_twin_contribution_individual_id'
      _definition
 ;
       The unique ID used to identify the twin individual.  
@@ -473,7 +456,7 @@ data_twin_individual_id
      _list_mandatory      yes
   loop_
      _list_link_child	  
-              '_twin_contrbution_twin_id'
+              '_twin_contrbution_individual_id'
               '_refln_twin_individual_id'
      _list_mandatory      yes
      _definition
@@ -497,6 +480,39 @@ data_twin_individual_mass_fraction_refined
       of all mass fractions must equal unity within the limits of 
       experimental uncertainty.
 ;
+
+data_twin_individual_twin_lattice_type
+##
+## IDB 2013-06-27
+## Under what circumstances would this item be in a list?
+## If there is more than one value to be listed, should it be given 
+## in one of the loops such as twin_individual?
+##
+## JRH/VGY 2013-09-03
+## twin lattice type moved into the twin_individual category
+## and a 'ref' lattice type added to flag the reference twin
+##
+    _name                     '_twin_individual_twin_lattice_type'
+    _category                 twin
+    _type                     char
+    _list                     yes 
+    loop_ _enumeration
+    	  _enumeration_detail
+               ref        'reference twin'
+               mt_I       'merohedral class I (simple inversion)'
+               mt_II      'merohedral class II (mirror or twofold)'
+               mt_I+II    'class I and II simultaneously present'
+               rmt        'reticular merohedral'
+               pmt        'pseudo-merohedral'
+               rpmt       'reticular pseudo-merohedral'
+               nmt        'non-merohedral'
+    _definition
+;
+       Identification of the symmetry relationships between the 
+       twin lattices as described in IT Vol C, Chapter 1.3.  The
+       reference twin should be denoted by 'ref'.
+;
+
 
 data_twin_individual_twin_matrix
      loop_ _name          '_twin_individual_twin_matrix_11'
@@ -533,6 +549,12 @@ data_twin_individual_twin_matrix
 ## identifying it as part of the twin suite of items 
 ## rather than the refln suite?
 ##
+## JRH 2013-09-03
+## This depends upon which aspect of the category is most important:
+## the fact that it refers to twinning, or the fact that it provides
+## information about the reflections. Either naming scheme will allow
+## expression of the important information, so I'm inclined to leave
+## it as is.
 
 data_refln_twin_[]
     _name                      '_refln_twin_[]'
@@ -558,6 +580,11 @@ data_refln_twin_[]
 ## to which the reference twin does not contribute 
 ## so there are lines where the _*_individual_id is not 1.
 ##
+## JRH 2013-09-03
+## The second example below contains some datums that arise from only one
+## of the twin individuals. Vic - perhaps you can add some datums to the
+## refln_twin loop that come from individual 2 only?
+##
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;
   loop_
@@ -565,7 +592,7 @@ data_refln_twin_[]
      _twin_contribution_index_h
      _twin_contribution_index_k
      _twin_contribution_index_l
-     _twin_contribution_twin_id
+     _twin_contribution_individual_id
 
    1   1   0   0   1
    1   1   0   0   3
@@ -622,7 +649,7 @@ data_refln_twin_[]
      _twin_contribution_index_h
      _twin_contribution_index_k
      _twin_contribution_index_l
-     _twin_contribution_twin_id
+     _twin_contribution_individual_id
    620   1  -6  -3  1 
    621  -1   6   3  1 
    622  -1  -6  -3  1  
