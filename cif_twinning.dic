@@ -143,7 +143,6 @@ data_twin_[]
 ;
     _twin_formation_mechanism         gt
     _twin_dimensionality              triperiodic
-    _twin_lattice_type                mt_II
     _twin_morphology                  polysynthetic
     _twin_special_details
     ;        This is an example of a twin in space group P 32
