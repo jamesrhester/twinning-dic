@@ -22,8 +22,8 @@
 
 data_on_this_dictionary
     _dictionary_name            cif_twinning.dic
-    _dictionary_version         0.4
-    _dictionary_update          2013-07-29
+    _dictionary_version         0.5
+    _dictionary_update          2013-09-03
     _dictionary_history
 ;
     2012-07-25 Created from Victor Young's draft text. JRH
