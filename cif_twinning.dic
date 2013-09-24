@@ -15,7 +15,7 @@
 
 data_on_this_dictionary
     _dictionary_name            cif_twinning.dic
-    _dictionary_version         0.5
+    _dictionary_version         0.6
     _dictionary_update          2013-09-13
     _dictionary_history
 ;
@@ -97,12 +97,6 @@ data_twin_[]
 
     _example
 # -----------------------------------------------------------------------------
-##
-## IDB 2013-09-13: Why do you use such a large value of l (=32) in this example?  
-## Such a large number tends to attract attention away
-## from the purpose of the illustration.
-##
-
 ;
     _twin_formation_mechanism         gt
     _twin_dimensionality              triperiodic
@@ -289,11 +283,6 @@ data_twin_contribution_[]
     contributes. 
 ;
     _example
-##
-## IDB 2013-09-13: In all the examples I have rearranged the order of the items 
-## so that the list reference items come first.  
-## See the end of _example_detail following the twin category definition.    
-##
 ;
      loop_
         _twin_contribution_individual_id
@@ -494,31 +483,6 @@ data_twin_individual_twin_matrix
 ## twin_refln ##
 ################
 
-##
-## IDB 2013-06-27
-## Would it be better to call this category twin_refln, 
-## identifying it as part of the twin suite of items 
-## rather than the refln suite?
-##
-## JRH 2013-09-03
-## This depends upon which aspect of the category is most important:
-## the fact that it refers to twinning, or the fact that it provides
-## information about the reflections. Either naming scheme will allow
-## expression of the important information, so I'm inclined to leave
-## it as is.
-##
-## IDB 2013-09-13 On giving this matter further thouhgt 
-## I believe that the correct name is twin_refln.  
-## Items in the refln category refer to the structure factors 
-## from a single crystal.  
-## Those given here show how these structure factors are combined 
-## to give the observed diffraction pattern.  
-## More importantly _twin_refln_individual_id is a child of _twin_individual_id 
-## and it is less likely to cause problems in the future if both items appear 
-## in the twin category, rather than spread over the twin and refln categories.  
-## I have changed the names to reflect this.
-##
-
 data_twin_refln_[]
     _name                      '_twin_refln_[]'
     _category                    category_overview
@@ -610,11 +574,6 @@ data_twin_refln_[]
       1  5   6   3  629
  
   loop_
-##
-## IDB 2013-09-13 I have moved _twin_refln_individual_id 
-## from the end of the line to bring it closer to the Miller indices 
-## that it determines.  This is for visual effect.
-##
      _twin_refln_datum_id
      _twin_refln_individual_id
      _twin_refln_index_h       
@@ -637,18 +596,6 @@ data_twin_refln_[]
    629   1   5   6   3      235.04      238.84      4.06 o   
 ;
 # --------------------------------------------------------------------
-
-##
-## IDB 2013-09-13: I have generated the following _example_details
-## from the comments in the previous version of the dictionary.  
-##
-## The following lines were also in these comments, 
-## but I am not sure what they mean:
-##
-## Some additional description could be added for the non-diffraction data 
-## CIF items. 
-##
-    # Description of example 2
 ;
  This example is taken from Colombo, et. al, (2000) 
  Inorg. Chem. 39, 4621. 
