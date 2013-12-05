@@ -15,8 +15,8 @@
 
 data_on_this_dictionary
     _dictionary_name            cif_twinning.dic
-    _dictionary_version         0.6
-    _dictionary_update          2013-09-13
+    _dictionary_version         0.8
+    _dictionary_update          2013-12-04
     _dictionary_history
 ;
     2012-07-25 Created from Victor Young's draft text. JRH
@@ -71,9 +71,14 @@ data_on_this_dictionary
     2013-09-13 IDB: Changed _refln_twin to _twin_refln, 
                improved the wording of some definitions, corrected syntax errors, 
                added _twin_refln_include_status, 
-               removed '_mandatory yes' from _twin_refn_index_
+               removed '_mandatory yes' from _twin_refln_index_
                Rearranged the order of items in some examples to put the 
                list reference first.
+    2013-11-13 IDB: Following comments from Tony Linden and George Sheldrick 
+               an alternative version of twin_refln is proposed.  
+               If this is adopted _twin_contribution would be dropped.
+    2013-12-04 IDB: The alternative twin_refln is adopted and 
+               twin_contribution is deleted.
 ;
 
 ###############
@@ -97,6 +102,7 @@ data_twin_[]
 
     _example
 # -----------------------------------------------------------------------------
+
 ;
     _twin_formation_mechanism         gt
     _twin_dimensionality              triperiodic
@@ -122,33 +128,6 @@ data_twin_[]
           1 0.545(2) ref   1  0  0  0  1  0  0  0  1
           2 0.455(2) mt_II 0  1  0  1  0  0  0  0 -1
 
-    loop_
-       _twin_contribution_individual_id
-       _twin_contribution_index_h
-       _twin_contribution_index_k
-       _twin_contribution_index_l
-       _twin_contribution_datum_id
-            1  -1   1 -32    1
-            2   1  -1  32    1
-            1   0   1 -32    2      
-            2   1   0  32    2
-            1   1   1 -32    3      
-            2   1   1  32    3
-            1  -3   2 -32    4     
-            2   2  -3  32    4
-            1  -2   2 -32    5      
-            2   2  -2  32    5
-            1  -1   2 -32    6      
-            2   2  -1  32    6
-            1   0   2 -32    7      
-            2   2   0  32    7
-            1   1   2 -32    8       
-            2   2   1  32    8
-            1  -2   3 -32    9      
-            2   3  -2  32    9
-            1  -1   3 -32   10      
-            2   3  -1  32   10 
-
     loop_ 
        _twin_refln_datum_id
        _twin_refln_individual_id
@@ -160,15 +139,25 @@ data_twin_[]
        _twin_refln_F_squared_sigma 
        _twin_refln_include_status 
           1    1  -1   1 -32     40.17     55.86      7.39 o        
+          1    2   1  -1  32     40.17     55.86      7.39 o        
           2    1   0   1 -32    125.83    145.63      9.36 o        
+          2    2   1   0  32    125.83    145.63      9.36 o        
           3    1   1   1 -32     10.33     30.89      7.39 o        
+          3    2   1   1  32     10.33     30.89      7.39 o        
           4    1  -3   2 -32     28.26     26.84      9.47 o        
+          4    2   2  -3  32     28.26     26.84      9.47 o        
           5    1  -2   2 -32      4.31     13.21      9.78 o        
+          5    2   2  -2  32      4.31     13.21      9.78 o       
           6    1  -1   2 -32     10.71     17.48      9.88 o        
+          6    2   2  -1  32     10.71     17.48      9.88 o     
           7    1   0   2 -32     13.94     37.66     10.51 o         
+          7    2   2   0  32     13.94     37.66     10.51 o    
           8    1   1   2 -32     58.60     75.41      9.88 o        
+          8    2   2   1  32     58.60     75.41      9.88 o   
           9    1  -2   3 -32     27.75     41.40      8.01 o        
+          9    2   3  -2  32     27.75     41.40      8.01 o  
          10    1  -1   3 -32     59.22     65.53      8.11 o       
+         10    2   3  -1  32     59.22     65.53      8.11 o 
 
 ;
 # - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
@@ -197,6 +186,7 @@ data_twin_[]
  is(are) the list reference.  While the list reference must be present 
  in every loop, it may be placed at any point on the line.
 ;
+
 
 data_twin_dimensionality
     _name                  '_twin_dimensionality'
@@ -265,121 +255,6 @@ data_twin_special_details
     _definition
 ;
     Information about twinning in the sample not contained in other data items.
-;
-
-#######################
-## TWIN_CONTRIBUTION ##
-#######################
-
-data_twin_contribution_[]
-    _name                      '_twin_contribution_[]'
-    _category                    category_overview
-    _type                        null
-    _definition
-;
-    Items in the twin_contribution category identify the datum_id of the 
-    observed diffraction peak to which the reflection defined by
-    _twin_contribution_index_h, k and l and _twin_contribution_individual_id
-    contributes. 
-;
-    _example
-;
-     loop_
-        _twin_contribution_individual_id
-        _twin_contribution_index_h
-        _twin_contribution_index_k
-        _twin_contribution_index_l
-        _twin_contribution_datum_id
-   3     1   0   0     1
-   1     1   0   0     1
-   3     2   0   0     2
-   1     2   0   0     2
-   3     3   0   0     3
-   1     3   0   0     3
-   3     4   0   0     4
-   1     4   0   0     4
-   3     5   0   0     5
-   1     5   0   0     5
-   4     6   1   2     6
-   3     6   0   0     6
-   2     6   1   2     6
-   1     6   0   0     6
-   2     6   2   2     7
-   1    -6   1   0     7
-;
-    _example_detail
-
-; 
-   This listing corresponds to seven observed diffraction spots from a
-   simple four-component twin by non-merohedry.  The corresponding
-   F^2 data is presented in the _twin_refln example.
-;
-
-data_twin_contribution_datum_id
-     _name            '_twin_contribution_datum_id'
-     _category         twin_contribution
-     _type             char
-     _list             yes
-     loop_ 
-         _list_reference
-              '_twin_contribution_individual_id'
-              '_twin_contribution_index_h'
-              '_twin_contribution_index_k'
-              '_twin_contribution_index_l'
-     _definition
-;
-     Each observed diffraction peak is assigned a unique _*_datum_id.
-     The observed structure factor of this diffraction peak 
-     may contain contributions from more than one twin.
-     These contributions are identified by the Miller indices 
-     of the reflection from the twin identified by _*_individual_id. 
-;	       
-
-data_twin_contribution_index_
-    loop_ _name              '_twin_contribution_index_h'
-                             '_twin_contribution_index_k'
-                             '_twin_contribution_index_l'
-    _category                 twin_contribution
-    _type                     numb
-    _list                     yes
-    _list_mandatory           yes
-    loop_ 
-         _list_reference
-              '_twin_contribution_individual_id'
-              '_twin_contribution_index_h'
-              '_twin_contribution_index_k'
-              '_twin_contribution_index_l'
-    _definition
-;    Miller indices of a reflection from a the twin 
-     identified by _*_individual_id. 
-     The values of the Miller indices must correspond to 
-     the cell defined in the cell category
-     combined with the transformation matrix for the twin individual 
-     identified by _twin_contribution_individual_id.
-     Together with _twin_contribution_individual_id it creates 
-     a unique list_reference for items in the this list.
-;
- 
-data_twin_contribution_individual_id
-     _name                    '_twin_contribution_individual_id'
-     _category                twin_contribution
-     _type                    char
-     _list                    yes
-     _list_link_parent        '_twin_individual_id' 
-    _list_mandatory           yes
-     loop_ 
-         _list_reference
-              '_twin_contribution_individual_id'
-              '_twin_contribution_index_h'
-              '_twin_contribution_index_k'
-              '_twin_contribution_index_l'
-     _definition
-;
-      The unique identifier for the twin individual.  
-      The identifier must match a _twin_individual_id in the 
-      twin_individual category.  
-      Together with _twin_contribution_index_h, *_k, *_l it creates 
-      a unique list_reference for items in the this list.
 ;
 
 
@@ -479,6 +354,7 @@ data_twin_individual_twin_matrix
      It follows that the reference twin must have U = I, the identity matrix. 
 ;     
 
+
 ################
 ## twin_refln ##
 ################
@@ -500,79 +376,42 @@ data_twin_refln_[]
 # - Example 1  - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -
 ;  
   loop_
-     _twin_contribution_individual_id
-     _twin_contribution_index_h
-     _twin_contribution_index_k
-     _twin_contribution_index_l
-     _twin_contribution_datum_id
-      1   1   0   0   1
-      3   1   0   0   1
-      1   2   0   0   2
-      3   2   0   0   2
-      1   3   0   0   3
-      3   3   0   0   3
-      1   4   0   0   4
-      3   4   0   0   4
-      1   5   0   0   5
-      3   5   0   0   5
-      4   6   1   2   6
-      3   6   0   0   6
-      2   6   1   2   6
-      1   6   0   0   6
-      1  -6   1   0   7
-      2   6   2   2   7
-
-  loop_
      _twin_refln_datum_id
+     _twin_refln_individual_id
      _twin_refln_index_h 
      _twin_refln_index_k 
      _twin_refln_index_l 
-     _twin_refln_F_squared_calc 
      _twin_refln_F_squared_meas 
      _twin_refln_F_squared_sigma 
      _twin_refln_include_status 
-     _twin_refln_individual_id
 
-   1   1   0   0        0.47        1.03      0.18 o  1
-   2   2   0   0     1300.45     1290.01     55.59 o  1
-   3   3   0   0        2.34        2.59      0.42 o  1
-   4   4   0   0       32.45       30.98      1.47 o  1
-   5   5   0   0        2.19        1.97      0.96 o  1
-   6   6   0   0        0.95        1.55      1.14 o  1
-   7  -6   1   0        0.08        0.47      1.06 o  1
+   1  1   1   0   0             1.03      0.18 o  
+   2  1   2   0   0          1290.01     55.59 o  
+   1  3   1   0   0             1.03      0.18 o         
+   2  3   2   0   0          1290.01     55.59 o  
+   3  1   3   0   0             2.59      0.42 o  
+   3  3   3   0   0             2.59      0.42 o  
+   4  1   4   0   0            30.98      1.47 o  
+   4  3   4   0   0            30.98      1.47 o  
+   5  1   5   0   0             1.97      0.96 o  
+   5  3   5   0   0             1.97      0.96 o  
+   6  1   6   0   0             1.55      1.14 o  
+   6  2   6   1   2             1.55      1.14 o  
+   6  3   6   0   0             1.55      1.14 o  
+   6  4   6   1   2             1.55      1.14 o  
+   7  1  -6   1   0             0.47      1.06 o  
+   7  2   6   2   2             0.47      1.06 o  
 ;
 #---------------------------------------------------------------------
 
 # Description of Example 1
 ;
    This listing describes seven observed diffraction peaks corresponding
-   to the diffraction peaks listed in the _twin_contributions_ example.
+   to the diffraction peaks.
 ;    
 
 # ---- Example 2 ------------------------------------------------------
 ;
-  loop_
-     _twin_contribution_individual_id
-     _twin_contribution_index_h
-     _twin_contribution_index_k
-     _twin_contribution_index_l
-     _twin_contribution_datum_id
-      1  1  -6  -3  620 
-      1 -1   6   3  621
-      2 -1   6   3  622  
-      1 -1  -6  -3  623
-      2 -1  -6  -3  624 
-      1  1   6   3  625
-      2  3  -6   1  625
-      2 -3   6   3  626
-      1  3  -6  -3  626
-      1  3   6   3  627
-      2 -3  -6  -3  627
-      2 -3   6   5  628
-      1 -5  -6  -3  628
-      2 -5  -6  -3  629
-      1  5   6   3  629
- 
   loop_
      _twin_refln_datum_id
      _twin_refln_individual_id
@@ -590,10 +429,15 @@ data_twin_refln_[]
    623   1  -1  -6  -3      173.28      181.13      3.06 o   
    624   2  -1  -6  -3      143.40      152.05      2.78 o   
    625   1   1   6   3      204.45      204.38      4.48 o   
+   625   2   3  -6   1      204.45      204.38      4.48 o   
    626   1   3  -6  -3      240.97      241.19      3.75 o   
+   626   2  -3   6   3      240.97      241.19      3.75 o  
    627   1   3   6   3      288.54      281.53      4.31 o   
+   627   2  -3  -6  -3      288.54      281.53      4.31 o  
    628   1  -5  -6  -3      179.56      176.35      5.36 o   
+   628   2  -3   6   5      179.56      176.35      5.36 o  
    629   1   5   6   3      235.04      238.84      4.06 o   
+   629   2  -5  -6  -3      235.04      238.84      4.06 o  
 ;
 # --------------------------------------------------------------------
 ;
@@ -605,9 +449,9 @@ data_twin_refln_[]
  while the lower temperature phase is a twin by non-merohedry 
  in space group I2. 
  The individuals are enantiomorphic as a result of the phase transition. 
- In the listing below it is clear that datums 620 - 624 do not contain 
- overlapping reflections, whereas datums 624 - 629 contain overlapping 
- reflections. 
+ In the listing above it is clear that datums 620 - 624 do not contain 
+ overlapping reflections, whereas datums 625 - 629 contain contributions 
+ from both twins.
 ;
 
 data_twin_refln_datum_id
@@ -618,18 +462,19 @@ data_twin_refln_datum_id
      _list_mandatory   yes
      _definition
 ;
-     _twin_refln_datum_id is the list reference and serves 
-     to identify an observed diffraction peak 
-     that may include contributions from one or more twin components.  
-     The observed and calculated structure factors indexed by
+     This item serves to identify an observed diffraction peak. 
+     It may include contributions from one or more twin components
+     and so may appear more than once in the list.  
+     The values of _twin_refln_F_squared_calc and 
+     _twin_refln_F_squared_meas indexed by
      _twin_refln_datum_id include the contributions from all the twins.  
-     The diffraction peak is optionally indexed by 
-     _twin_refln_index_h, _*_k and _*_l for the this reflection 
-     contributed by the twin component given by_twin_refln_individual_id.  
-     Only one such indexing is allowed, the choice of which 
-     to include is arbitrary.
-
-	Each value of _twin_refln_datum_id may only appear once in the list.
+     The diffraction peak is indexed by 
+     _twin_refln_index_h, _*_k and _*_l referred to the cell of 
+     the twin component identified by given by_twin_refln_individual_id.  
+     
+     The list reference includes both _twin_refln_datum_id and 
+     _twin_refln_indivdual_id.  The combination of these two items 
+     may only appear once in a list. 
 ;	       
 
 data_twin_refln_F_squared_calc
@@ -637,7 +482,8 @@ data_twin_refln_F_squared_calc
     _category                    twin_refln
     _type                        numb
     _list                        yes
-    _list_reference              '_refl_twin_datum_id'
+loop_
+    _list_reference        '_twin_refl_datum_id' '_twin_refln_individual_id'
     _definition 
 ; 
 
@@ -657,16 +503,40 @@ data_twin_refln_F_squared_calc
          to this diffraction peak.
 ;
 
+
+data_twin_refln_F_squared_calc_individual
+    _name                        '_twin_refln_F_squared_calc_individual'
+    _category                    twin_refln
+    _type                        numb
+    _list                        yes
+loop_
+    _list_reference        '_twin_refl_datum_id' '_twin_refln_individual_id'
+    _definition 
+; 
+
+        Contribution of the twin identified by _twin_refln_individual_id 
+        to _twin_refln_F_squared_calc. 
+
+        _twin_refln_F_squared_calc_individual =
+
+              = osf*mass_fraction*_refln_F_squared_calc
+
+        Where osf is the overall scale factor.  For x-ray diffraction 
+        the units are electrons squared.
+
+;
+
 data_twin_refln_F_squared_meas
     _name                        '_twin_refln_F_squared_meas'
     _category                    twin_refln
     _type                        numb
     _list                        yes
-    _list_reference              '_refl_twin_datum_id'
+loop_
+    _list_reference        '_twin_refl_datum_id' '_twin_refln_individual_id'
 
     _definition 
 ;
-         The obsderved value F^2 of the peak referenced by 
+         The observed value F^2 of the peak referenced by 
          _twin_refln_datum_id. This is typically the observed peak
          intensity after Lorenz and polarisation corrections.
 ;
@@ -676,7 +546,8 @@ data_twin_refln_F_squared_sigma
     _category                    twin_refln
     _type                        numb
     _list                        yes
-    _list_reference              '_refl_twin_datum_id'
+loop_
+    _list_reference        '_twin_refl_datum_id' '_twin_refln_individual_id'
 
     _definition 
 ;
@@ -688,7 +559,8 @@ data_twin_refln_include_status
      _category           twin_refln
      _type               char
      _list               yes
-    _list_reference      '_refl_twin_datum_id'
+loop_
+    _list_reference        '_twin_refl_datum_id' '_twin_refln_individual_id'
     loop_ _enumeration
           _enumeration_detail    
      o
@@ -720,12 +592,12 @@ data_twin_refln_index_
     _category                 twin_refln
     _type                     numb
     _list                     yes
-    _list_reference
-     '_refl_twin_datum_id'
+loop_
+    _list_reference        '_twin_refl_datum_id' '_twin_refln_individual_id'
     _definition
 ;
      Miller indices of a reflection from the twin component 
-     labelled by _refl_twin_individual_id. 
+     labelled by _twin_refl_individual_id. 
      The values of the Miller indices must correspond 
      to the cell defined for this twin component.  
 ;
@@ -735,13 +607,20 @@ data_twin_refln_individual_id
      _category           twin_refln
      _type               char
      _list               yes
+     _list_manditory     yes
      _list_link_parent   '_twin_individual_id' 
-    _list_reference      '_refl_twin_datum_id'
+loop_
+    _list_reference        '_twin_refl_datum_id' '_twin_refln_individual_id'
      _definition
 ;
       The unique identifier of the twin individual 
       whose Miller indices are given in _twin_refln_index_.  
       The ID must match a _twin_individual_id in the 
       twin_individual category.  
+
+     The list reference includes both _twin_refln_datum_id and 
+     _twin_refln_indivdual_id.  The combination of these two items 
+     may only appear once in a list. 
 ;
+
 
