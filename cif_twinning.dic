@@ -79,6 +79,12 @@ data_on_this_dictionary
                If this is adopted _twin_contribution would be dropped.
     2013-12-04 IDB: The alternative twin_refln is adopted and 
                twin_contribution is deleted.
+    2013-12-04 MINOR corrections made by VGY with respect to line number:
+               line 176 - spelling of "International" corrected. Also the next
+                    short paragraph explaining twin_contribution was removed.
+               lines 391-392 swapped.
+               lines 411-415 clarified the description of the four-individual
+                    twin example 1.
 ;
 
 ###############
@@ -167,11 +173,7 @@ data_twin_[]
  a trigonal crystal system. The simulated space group is P 32 2 1, but
  the true space group is P 32. The twin operation chosen is 2: x,x,0 in
  P 32 2 1 corresponding to operation (by rows) 0, 1, 0 / 1, 0, 0 / 0, 0, -1
- (see table 11.2.2.1 of Internation Tables for Crystallography Vol A).
-
- The twin_contribution loop shows which reflection from which twin 
- contributes to the diffraction peak identified by 
- _twin_contribution_datum_id.
+ (see table 11.2.2.1 of International Tables for Crystallography Vol A).
 
  The twin_refln loop gives the properties of each diffraction peak
  (identified by _twin_refln_datum_id) which is indexed 
@@ -386,8 +388,8 @@ data_twin_refln_[]
      _twin_refln_include_status 
 
    1  1   1   0   0             1.03      0.18 o  
-   2  1   2   0   0          1290.01     55.59 o  
    1  3   1   0   0             1.03      0.18 o         
+   2  1   2   0   0          1290.01     55.59 o  
    2  3   2   0   0          1290.01     55.59 o  
    3  1   3   0   0             2.59      0.42 o  
    3  3   3   0   0             2.59      0.42 o  
@@ -406,8 +408,11 @@ data_twin_refln_[]
 
 # Description of Example 1
 ;
-   This listing describes seven observed diffraction peaks corresponding
-   to the diffraction peaks.
+   This partial listing describes seven observed diffraction peaks 
+   in a four-individual twin by non-merohedry. The reference individual
+   is 1. Reflections from the other three individuals 2,3, and 4 are 
+   present only if these cannot be experimentally separated from the 
+   reference individual. 
 ;    
 
 # ---- Example 2 ------------------------------------------------------
