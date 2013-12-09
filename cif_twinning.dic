@@ -79,13 +79,9 @@ data_on_this_dictionary
                If this is adopted _twin_contribution would be dropped.
     2013-12-04 IDB: The alternative twin_refln is adopted and 
                twin_contribution is deleted.
-    2013-12-04 MINOR corrections made by VGY with respect to line number:
-               line 176 - spelling of "International" corrected. Also the next
-                    short paragraph explaining twin_contribution was removed.
-               lines 391-392 swapped.
-               lines 411-415 clarified the description of the four-individual
-                    twin example 1.
-    1012-12-05 IDB: Made changes in the description of the example 
+    2012-12-04 Minor spelling corrections,removal of old twin_contribution
+               material and example clarification added. VGY
+    2012-12-05 IDB: Made changes in the description of the example 
                under the twin category to reflect the deletion 
                of the twin_contribution category.
                Removed '_twin_contrbution_individual_id' from _link_list_child 
