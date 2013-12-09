@@ -15,7 +15,7 @@
 
 data_on_this_dictionary
     _dictionary_name            cif_twinning.dic
-    _dictionary_version         0.8
+    _dictionary_version         0.8.2
     _dictionary_update          2013-12-04
     _dictionary_history
 ;
@@ -79,8 +79,20 @@ data_on_this_dictionary
                If this is adopted _twin_contribution would be dropped.
     2013-12-04 IDB: The alternative twin_refln is adopted and 
                twin_contribution is deleted.
-    2013-12-04 Minor spelling corrections,removal of old twin_contribution
-               material and example clarification added. VGY
+    2013-12-04 MINOR corrections made by VGY with respect to line number:
+               line 176 - spelling of "International" corrected. Also the next
+                    short paragraph explaining twin_contribution was removed.
+               lines 391-392 swapped.
+               lines 411-415 clarified the description of the four-individual
+                    twin example 1.
+    1012-12-05 IDB: Made changes in the description of the example 
+               under the twin category to reflect the deletion 
+               of the twin_contribution category.
+               Removed '_twin_contrbution_individual_id' from _link_list_child 
+               in the definition of _twin_individual_id.
+               Modified the description of the twin_refln category 
+               to reflect the merging of twin_contribution with twin_refln.
+               Added r to enumeration list of _twin_refln_include_status.
 ;
 
 ###############
@@ -173,15 +185,10 @@ data_twin_[]
 
  The twin_refln loop gives the properties of each diffraction peak
  (identified by _twin_refln_datum_id) which is indexed 
- to one of the twin individuals.
- Because this is an example of merohedral twinning, 
- all the diffraction peaks can be indexed to the reference twin 
- (_twin_refln_individual_id = 1).  
- In cases of non-merohdral twinning some diffraction peaks 
- would have to be indexed to different twin individuals.  
-
- In each of the loops shown in this example the first item(s) on a line 
- is(are) the list reference.  While the list reference must be present 
+ to both the twin individuals.
+ 
+ In each of the loops shown in this example the first items on a line 
+ are the list reference.  While the list reference must be present 
  in every loop, it may be placed at any point on the line.
 ;
 
@@ -276,9 +283,7 @@ data_twin_individual_id
      _type                char
      _list                yes
      _list_mandatory      yes
-  loop_
      _list_link_child	  
-              '_twin_contrbution_individual_id'
               '_twin_refln_individual_id'
      _definition
 ;
@@ -368,6 +373,7 @@ data_twin_refln_[]
     together with the measured value of F^2.
     The calculated F^2 for an observed peak is a weighted sum 
     of the contribution of all the twin components.
+    The calculated structure factor for each twin contribution can also be givn.
 ; 
     loop_ _example
           _example_detail
@@ -577,6 +583,7 @@ loop_
 ;
      -       'systematically absent reflection'
      x       'unreliable measurement -- not used'
+     r       'removed from the refinement for other reasons'
      h       'does not satisfy _refine_ls_d_res_high'
      l       'does not satisfy _refine_ls_d_res_low'
           _enumeration_default         o
