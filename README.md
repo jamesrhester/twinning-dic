@@ -1,6 +1,8 @@
 twinning-dic
 ============
 
-This repository has been created to ease development of the IUCr twinning dictionary. Note that this is a DRAFT
-version only and datanames from this dictionary should not be used in CIF files until the dictionary is approved
-by COMCIFS, at which point this message will change.
+This repository records the development of the IUCr twinning dictionary. As of Feb 14th, 2014, datanames from
+this dictionary may be used in data files and programs without danger that they will change in the future.
+
+Due to changes in line termination between operating systems, differences between versions are best displayed by ignoring
+whitespace differences.
